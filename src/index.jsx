@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { FaLinkedin, FaCalendarAlt, FaEdit, FaEye } from 'react-icons/fa';
+import { FaLinkedin, FaCalendarAlt, FaEdit, FaEye, FaColumns } from 'react-icons/fa';
 import CodeMirror from '@uiw/react-codemirror';
 import { yaml as yamlLang } from '@codemirror/lang-yaml';
+import { EditorView } from '@codemirror/view';
 import yaml from 'js-yaml';
 import './index.css';
 
@@ -284,7 +285,7 @@ function Resume(props) {
 
   return (
     <div className="w3-margin-top w3-margin-bottom w3-white top-container">
-      <FaEdit className="no-print edit-btn" onClick={props.onEdit}/>
+      {props.onEdit && <FaEdit className="no-print edit-btn" onClick={props.onEdit}/>}
       <Name
         {...props.profile}
       />
@@ -317,21 +318,60 @@ function Resume(props) {
   );
 }
 
-function Editor({ yamlText, onChange, onPreview, error }) {
+function Toolbar({ onPreview, onSplit, onEditOnly, error }) {
   return (
-    <div className="editor-container">
-      <div className="editor-toolbar">
+    <div className="editor-toolbar">
+      {onPreview && (
         <button className="editor-preview-btn" onClick={onPreview}>
           <FaEye className="icon"/> Preview
         </button>
-        {error && <span className="editor-error">{error}</span>}
-      </div>
+      )}
+      {onSplit && (
+        <button className="editor-preview-btn" onClick={onSplit}>
+          <FaColumns className="icon"/> Split
+        </button>
+      )}
+      {onEditOnly && (
+        <button className="editor-preview-btn" onClick={onEditOnly}>
+          <FaEdit className="icon"/> Edit Only
+        </button>
+      )}
+      {error && <span className="editor-error">{error}</span>}
+    </div>
+  );
+}
+
+function Editor({ yamlText, onChange, onPreview, onSplit, error }) {
+  return (
+    <div className="editor-container">
+      <Toolbar onPreview={onPreview} onSplit={onSplit} error={error}/>
       <CodeMirror
         value={yamlText}
         height="calc(100vh - 3rem)"
-        extensions={[yamlLang()]}
+        extensions={[yamlLang(), EditorView.lineWrapping]}
         onChange={onChange}
       />
+    </div>
+  );
+}
+
+function SplitView({ yamlText, onChange, onPreview, onEditOnly, resume, error }) {
+  return (
+    <div className="split-container">
+      <Toolbar onPreview={onPreview} onEditOnly={onEditOnly} error={error}/>
+      <div className="split-body">
+        <div className="split-editor">
+          <CodeMirror
+            value={yamlText}
+            height="calc(100vh - 3rem)"
+            extensions={[yamlLang(), EditorView.lineWrapping]}
+            onChange={onChange}
+          />
+        </div>
+        <div className="split-preview w3-grey">
+          {resume && <Resume {...resume}/>}
+        </div>
+      </div>
     </div>
   );
 }
@@ -351,6 +391,16 @@ function ResumeApp() {
       });
   }, []);
 
+  const handleChange = (text) => {
+    setYamlText(text);
+    try {
+      setResume(yaml.load(text));
+      setError(null);
+    } catch (e) {
+      setError(e.message);
+    }
+  };
+
   const handlePreview = () => {
     try {
       setResume(yaml.load(yamlText));
@@ -367,8 +417,22 @@ function ResumeApp() {
     return (
       <Editor
         yamlText={yamlText}
-        onChange={setYamlText}
+        onChange={handleChange}
         onPreview={handlePreview}
+        onSplit={() => setMode('split')}
+        error={error}
+      />
+    );
+  }
+
+  if (mode === 'split') {
+    return (
+      <SplitView
+        yamlText={yamlText}
+        onChange={handleChange}
+        onPreview={handlePreview}
+        onEditOnly={() => setMode('edit')}
+        resume={resume}
         error={error}
       />
     );

@@ -455,6 +455,31 @@ html,body {
   height: 100vh;
 }
 
+.split-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.split-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.split-editor {
+  flex: 1;
+  overflow: hidden;
+  border-right: 1px solid #ddd;
+}
+
+
+.split-preview {
+  flex: 2;
+  max-width: 1120px;
+  overflow-y: auto;
+}
+
 .editor-toolbar {
   display: flex;
   align-items: center;
