@@ -1,0 +1,5 @@
+public/resume.yaml
+node_modules/
+build/
+dist/
+.claude/

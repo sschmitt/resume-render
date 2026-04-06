@@ -1,0 +1,138 @@
+# Render with https://github.com/sschmitt/resume-render
+profile:
+  name: Stephen W. Schmitt
+  occupation: Software Engineer
+  location: Needham, MA
+  email: schmitt.sw@gmail.com
+  tel: (508) 662-2008
+  linkedin: stephen-w-schmitt
+skills:
+  - [C, C++, Go, Bash, Python]
+  - [AWS, GCP, Azure]
+  - [Distributed Systems, Networking]
+  - [Storage Systems, High Availability]
+  - [Controllers, Drivers]
+  - [Kubernetes, Docker]
+  - [NAS, SAN, SCSI]
+  - [EWS, MS Graph]
+  - [Git, Perforce, SVN]
+  - [Linux, Windows]
+  - [GDB, DTrace]
+  - [Excel]
+  - [Qt]
+education:
+  schools:
+  - school: Northeastern University
+    location: Boston, MA
+    # start: 2007
+    end: May 2012
+    degrees:
+    - B.S. in Electrical Engineering
+    - Minor in Computer Science
+  # internships:
+  # - title: MIT Lincoln Laboratory
+  #   start: Jan 2010
+  #   end: May 2012
+  #   summary: Software Engineering Co-op
+  # - title: Dynisco
+  #   start: Jan 2009
+  #   end: Jun 2009
+  #   summary: Software Engineering Co-op
+experience:
+- employer: Cohesity
+  location: San Jose, CA (Remote from MA)
+  positions:
+  - title: Staff Software Engineer 2
+    start: Aug 2022
+    end: Present
+    summary: Technical lead on Cloud Adapter team at data backup company
+    bullets:
+    - Currently working on backup and restore of Microsoft 365 Outlook data.
+    - Led development of new service to integrate product with AWS Backup.
+    - Designed and implemented backup of AWS RDS databases.
+    - Developed technical design and branching strategy to decouple delivery of control plane and data plane components.
+
+- employer: NetApp
+  location: Waltham, MA
+  positions:
+  - title: MTS V
+    alt_title: Senior Software Engineer
+    start: Nov 2020
+    end: Aug 2022
+    summary: Tech lead, feature owner, and mentor for Software-Defined Cloud Volumes Service (CVS-SW)
+    bullets:
+    - Designed and prototyped Cross Region Replication feature.
+    - Architected Software-Defined Azure NetApp Files (ANF-SW) — developed storage growth strategy, network architecture, and performance and cost analysis. Delivered PoC in 2021.
+    - Designed and led development of dynamic VM sizing feature for cost optimization.
+    - Managed creation of developer integration test framework.
+
+  - title: MTS IV
+    alt_title: Software Engineer
+    start: Apr 2018
+    end: Nov 2020
+    summary: Tech lead and feature owner on CVS-SW team
+    bullets:
+    - Developed declarative API via custom resource definitions and implemented custom Kubernetes controllers.
+    - Created developer workflow automation scripts and utilities.
+    - Designed and led development of networking solution for Kubernetes-based NFS service.
+    - Designed and implemented control plane for Cloud Backup feature.
+    - Led technical forum for initial development of NetApp Astra.
+
+  - title: MTS III
+    alt_title: Software Engineer
+    start: Aug 2015
+    end: Apr 2018
+    summary: Feature owner on Cloud Volumes ONTAP (CVO) team
+    bullets:
+    - Designed, implemented, and oversaw team members to deliver new Page Blob storage driver for Azure-HA solution — achieved excellent performance versus StorVSC driver.
+    - Investigated performance bottlenecks through CPU profiling and I/O tracing (DTrace, Flame Graph). Implemented zero-copy and local path optimizations. # 10% perf improvement for seq write workload
+    - Created framework for reusing and unit testing bootstrapping code (bash).
+    - Owned several Continuous Integration Test (CIT) suites. # Enabled mpt storage driver for iscsi NSHA. Found and fixed race conditions in the freebsd CAM/iSCSI stack.
+    # - Added CLIs and APIs for Non-Shared HA configuration.
+
+  - title: MTS II
+    alt_title: Software Engineer
+    start: Oct 2013
+    end: Aug 2015
+    summary: Contributor on Virtual Storage Appliance (VSA) and CVO teams
+    bullets:
+    - Investigated and prototyped storage and networking solutions for High Availability variant.
+    - Wrote C++ library to integrate with AWS Query API and generated docs with doxygen.
+    # - Leveraged VMware ESXi APIs to add backend storage information to the VSA’s API.
+
+  - title: MTS I
+    alt_title: Software Engineer
+    start: Jun 2012
+    end: Oct 2013
+    summary: Contributor on VSA team
+    bullets:
+    - Implemented improved disk emulation on VSIM (virtual simulator) platform. # 520 BPS disks, up to 15 emulated disks per virtual disk.
+    - Wrote scripts to build evaluation version of VSA into OVF package.
+
+  # Use the following template for positions:
+  # - title: MTS V
+  #   alt_title: Senior Software Engineer
+  #   start: Nov 2020
+  #   end: Present
+  #   summary: __________________________________________________
+  #   bullets:
+  #   - __________________________________________________
+  #   - __________________________________________________
+  #   - __________________________________________________ ______________ ______________ _______________________________________________________
+  #   - __________________________________________________
+
+projects:
+- title: ML Weather Forecasting
+  start: 2017
+  end: 2021
+  summary: Won $250,000 for first place solution predicting precipitation 3-6 weeks out. Co-founded Salient Predictions to provide long-range forecasts to enterprise clients.
+
+- title: 'Dota 2 Overlay‎ ‎ ‎ ‎ '
+  start: 2013
+  end: 2018
+  summary: Mined match data to produce game UI overlay with data visualizations and real-time recommendations.
+
+- title: World of Warcraft AddOn
+  start: 2007
+  end: 2009
+  summary: Created in-game data visualization that saw 30,000+ downloads.

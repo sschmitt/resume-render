@@ -1,0 +1,68 @@
+# Render with https://github.com/sschmitt/resume-render
+profile:
+  name: Jane Smith
+  occupation: Software Engineer
+  location: Boston, MA
+  email: jane.smith@example.com
+  tel: (555) 555-5555
+  linkedin: jane-smith
+
+skills:
+  - [Python, Go, TypeScript, Bash]
+  - [AWS, GCP]
+  - [Kubernetes, Docker]
+  - [PostgreSQL, Redis]
+  - [Distributed Systems, Networking]
+  - [Git, Linux]
+
+education:
+  schools:
+  - school: State University
+    location: Springfield, MA
+    end: May 2016
+    degrees:
+    - B.S. in Computer Science
+
+experience:
+- employer: Acme Corp
+  location: Boston, MA
+  positions:
+  - title: Senior Software Engineer
+    start: Jan 2021
+    end: Present
+    summary: Tech lead on the platform team at a cloud infrastructure company.
+    bullets:
+    - Led design and implementation of a distributed job scheduling system handling 50k jobs/day.
+    - Reduced p99 API latency by 40% through query optimization and caching layer redesign.
+    - Mentored three junior engineers and conducted technical interviews.
+
+  - title: Software Engineer
+    start: Jun 2018
+    end: Jan 2021
+    summary: Backend engineer on the data pipeline team.
+    bullets:
+    - Built ingestion pipeline processing 10TB of daily event data.
+    - Designed and owned the internal metrics and alerting platform.
+    - Migrated monolithic service to microservices, reducing deploy times by 60%.
+
+- employer: Startup Inc
+  location: Cambridge, MA
+  positions:
+  - title: Software Engineer
+    start: Jul 2016
+    end: Jun 2018
+    summary: Early engineer at a series A SaaS startup.
+    bullets:
+    - Developed core product features across the full stack.
+    - Owned the billing and subscription integration with Stripe.
+
+projects:
+- title: Open Source CLI Tool
+  start: 2022
+  end: 2023
+  summary: Built a developer productivity tool with 2,000+ GitHub stars. Written in Go.
+
+- title: Personal Finance Tracker
+  start: 2020
+  end: 2021
+  summary: Full-stack web app for tracking expenses and investments, with automated bank imports.
