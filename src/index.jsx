@@ -406,7 +406,9 @@ function ResumeApp() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const isYaml = r => r.ok && !(r.headers.get('content-type') || '').includes('text/html');
     fetch('/resume.yaml')
+      .then(r => isYaml(r) ? r : fetch('/resume.sample.yaml'))
       .then(r => r.text())
       .then(text => {
         setYamlText(text);
