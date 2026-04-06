@@ -31,9 +31,21 @@ To create a production build:
 npm run build
 ```
 
+## Editing
+
+Click the pencil icon in the top-left of the resume to enter edit mode. There are three viewing modes:
+
+| Mode | Description |
+|---|---|
+| **View** | Full-screen rendered resume |
+| **Edit** | Full-screen YAML editor with syntax highlighting |
+| **Split** | Editor on the left, live preview on the right |
+
+In split mode the preview updates automatically as you type whenever the YAML is valid. Use the **Preview** and **Split** / **Edit Only** buttons in the toolbar to switch between modes.
+
 ## resume.yaml
 
-The app expects a `resume.yaml` file in the project root. This file is excluded from version control (see `.gitignore`) since it contains personal contact information. Use the structure below as a template:
+Place `resume.yaml` in the `public/` directory. This file is excluded from version control (see `.gitignore`) since it contains personal contact information. Use the structure below as a template:
 
 ```yaml
 profile:
@@ -77,4 +89,4 @@ projects:
 
 ## Printing
 
-The page is styled for print. Use your browser's print dialog (or Ctrl+P / Cmd+P) to save as PDF. Print-specific styles hide non-essential UI elements automatically.
+The page is styled for print. Use your browser's print dialog (or Ctrl+P / Cmd+P) to save as PDF. Print-specific styles hide non-essential UI elements automatically. Print margins are set to 0.5in.
