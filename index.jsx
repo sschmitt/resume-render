@@ -25,21 +25,21 @@ function Location(props) {
     );
   } else {
     return (
-      <Fragment>
+      <span className="icon-text">
         <span className="material-icons">place</span>
         {props.location}
-      </Fragment>
+      </span>
     );
   }
 }
 
 function DateRange(props) {
   return (
-    <Fragment>
+    <span className="icon-text">
       <FaCalendarAlt className="icon icon-cal"/>
       {/*<span className="material-icons">calendar_month</span>*/}
       {props.start != null && props.start + " - "}{props.end != null ? props.end : <span className="w3-tag w3-dark-grey w3-round">Present</span>}
-    </Fragment>
+    </span>
   );
 }
 
@@ -120,17 +120,17 @@ function Name(props) {
           <p><Location location={props.location}/></p>
         )}
         {!!props.email && (
-          <p><a href={"mailto:" + props.email}>
+          <p><a className="icon-text" href={"mailto:" + props.email}>
             <span className="material-icons">email</span>{props.email}
           </a></p>
         )}
         {!!props.tel && (
-          <p><a href={"tel:" + props.tel}>
+          <p><a className="icon-text" href={"tel:" + props.tel}>
             <span className="material-icons">phone</span>{props.tel}
           </a></p>
         )}
         {!!props.linkedin && (
-          <p><a href={"https://www.linkedin.com/in/" + props.linkedin} target="_blank" rel="noreferrer">
+          <p><a className="icon-text" href={"https://www.linkedin.com/in/" + props.linkedin} target="_blank" rel="noreferrer">
             <FaLinkedin className="icon"/>
             /{props.linkedin}
           </a></p>
