@@ -1,6 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { FaLinkedin, FaCalendarAlt, FaEdit } from 'react-icons/fa';
+import { FaLinkedin, FaCalendarAlt, FaEdit, FaEye } from 'react-icons/fa';
+import CodeMirror from '@uiw/react-codemirror';
+import { yaml as yamlLang } from '@codemirror/lang-yaml';
+import yaml from 'js-yaml';
 import './index.css';
 
 function Card(props) {
@@ -37,7 +40,6 @@ function DateRange(props) {
   return (
     <span className="icon-text">
       <FaCalendarAlt className="icon icon-cal"/>
-      {/*<span className="material-icons">calendar_month</span>*/}
       {props.start != null && props.start + " - "}{props.end != null ? props.end : <span className="w3-tag w3-dark-grey w3-round">Present</span>}
     </span>
   );
@@ -253,7 +255,7 @@ function Education(props) {
               />
             );
           })}
-          
+
           {props.internships && props.internships.length > 0 && (
             <Fragment>
               <h4><b>Internships</b></h4>
@@ -276,15 +278,13 @@ function Education(props) {
 
 function Resume(props) {
   useEffect(() => {
-    // Update the document title using the browser API
     let today = new Date()
     document.title = props.profile.name + ' Resume ' + today.toISOString().split('T')[0];
   });
 
   return (
-    // Page Container
     <div className="w3-margin-top w3-margin-bottom w3-white top-container">
-      <FaEdit className="no-print"/>
+      <FaEdit className="no-print edit-btn" onClick={props.onEdit}/>
       <Name
         {...props.profile}
       />
@@ -317,29 +317,67 @@ function Resume(props) {
   );
 }
 
-// function Editor(props) {
-//   return (
-    
-//   );
-// }
-
-function ResumeApp(props) {
+function Editor({ yamlText, onChange, onPreview, error }) {
   return (
-    // <Editor text={props.text} />,
-    <Resume {...props.resume} />
+    <div className="editor-container">
+      <div className="editor-toolbar">
+        <button className="editor-preview-btn" onClick={onPreview}>
+          <FaEye className="icon"/> Preview
+        </button>
+        {error && <span className="editor-error">{error}</span>}
+      </div>
+      <CodeMirror
+        value={yamlText}
+        height="calc(100vh - 3rem)"
+        extensions={[yamlLang()]}
+        onChange={onChange}
+      />
+    </div>
   );
+}
+
+function ResumeApp() {
+  const [mode, setMode] = useState('view');
+  const [yamlText, setYamlText] = useState('');
+  const [resume, setResume] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch('/resume.yaml')
+      .then(r => r.text())
+      .then(text => {
+        setYamlText(text);
+        setResume(yaml.load(text));
+      });
+  }, []);
+
+  const handlePreview = () => {
+    try {
+      setResume(yaml.load(yamlText));
+      setError(null);
+      setMode('view');
+    } catch (e) {
+      setError(e.message);
+    }
+  };
+
+  if (!resume) return null;
+
+  if (mode === 'edit') {
+    return (
+      <Editor
+        yamlText={yamlText}
+        onChange={setYamlText}
+        onPreview={handlePreview}
+        error={error}
+      />
+    );
+  }
+
+  return <Resume {...resume} onEdit={() => setMode('edit')} />;
 }
 
 // ========================================
 
-import yaml from 'js-yaml';
-import resumeFile from './resume.yaml?url';
-
 const root = createRoot(document.getElementById('root'));
-fetch(resumeFile)
-  .then(r => r.text())
-  .then(text => {
-    const resume = yaml.load(text);
-    // console.log(yaml.dump(resume));
-    root.render(<Resume {...resume} />);
-  });
+root.render(<ResumeApp />);
