@@ -33,19 +33,21 @@ npm run build
 
 ## Editing
 
-Click the pencil icon in the top-left of the resume to enter edit mode. There are three viewing modes:
+Click the **Edit** button in the top-left of the resume to switch to split mode. There are three viewing modes:
 
 | Mode | Description |
 |---|---|
 | **View** | Full-screen rendered resume |
-| **Edit** | Full-screen YAML editor with syntax highlighting |
-| **Split** | Editor on the left, live preview on the right |
+| **Split** | Editor on the left, live preview on the right (default when editing) |
+| **Edit Only** | Full-screen YAML editor |
 
-In split mode the preview updates automatically as you type whenever the YAML is valid. Use the **Preview** and **Split** / **Edit Only** buttons in the toolbar to switch between modes.
+In split mode the preview updates automatically as you type whenever the YAML is valid. The toolbar also has **Save** (download `resume.yaml`) and **Load** (upload a YAML file) buttons.
 
 ## resume.yaml
 
-Place `resume.yaml` in the `public/` directory. This file is excluded from version control (see `.gitignore`) since it contains personal contact information. Use the structure below as a template:
+Place `resume.yaml` in the `public/` directory. This file is excluded from version control (see `.gitignore`) since it contains personal contact information. If no `resume.yaml` is present, the app loads `public/resume.sample.yaml` as a placeholder.
+
+Use the structure below as a template:
 
 ```yaml
 profile:

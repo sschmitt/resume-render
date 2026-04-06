@@ -486,7 +486,7 @@ function ResumeApp() {
     );
   }
 
-  return <Resume {...resume} onEdit={() => setMode('edit')} />;
+  return <Resume {...resume} onEdit={() => setMode('split')} />;
 }
 
 // ========================================
