@@ -285,7 +285,11 @@ function Resume(props) {
 
   return (
     <div className="w3-margin-top w3-margin-bottom w3-white top-container">
-      {props.onEdit && <FaEdit className="no-print edit-btn" onClick={props.onEdit}/>}
+      {props.onEdit && (
+        <button className="no-print editor-preview-btn edit-btn" onClick={props.onEdit}>
+          <FaEdit className="icon"/> Edit
+        </button>
+      )}
       <Name
         {...props.profile}
       />

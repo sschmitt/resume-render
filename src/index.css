@@ -440,13 +440,7 @@ html,body {
 }
 
 .edit-btn {
-  cursor: pointer;
-  font-size: 1.25rem;
-  color: #aaa;
-}
-
-.edit-btn:hover {
-  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .editor-container {
