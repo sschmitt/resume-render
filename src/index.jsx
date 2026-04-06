@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { FaLinkedin, FaCalendarAlt, FaEdit, FaEye, FaColumns } from 'react-icons/fa';
+import { FaLinkedin, FaCalendarAlt, FaEdit, FaEye, FaColumns, FaDownload, FaFolderOpen } from 'react-icons/fa';
 import CodeMirror from '@uiw/react-codemirror';
 import { yaml as yamlLang } from '@codemirror/lang-yaml';
 import { EditorView } from '@codemirror/view';
@@ -318,7 +318,7 @@ function Resume(props) {
   );
 }
 
-function Toolbar({ onPreview, onSplit, onEditOnly, error }) {
+function Toolbar({ onPreview, onSplit, onEditOnly, onDownload, onLoad, error }) {
   return (
     <div className="editor-toolbar">
       {onPreview && (
@@ -336,15 +336,34 @@ function Toolbar({ onPreview, onSplit, onEditOnly, error }) {
           <FaEdit className="icon"/> Edit Only
         </button>
       )}
+      {onDownload && (
+        <button className="editor-preview-btn" onClick={onDownload}>
+          <FaDownload className="icon"/> Save
+        </button>
+      )}
+      {onLoad && (
+        <>
+          <input
+            id="yaml-load-input"
+            type="file"
+            accept=".yaml,.yml"
+            style={{ display: 'none' }}
+            onChange={onLoad}
+          />
+          <label className="editor-preview-btn" htmlFor="yaml-load-input" style={{ cursor: 'pointer' }}>
+            <FaFolderOpen className="icon"/> Load
+          </label>
+        </>
+      )}
       {error && <span className="editor-error">{error}</span>}
     </div>
   );
 }
 
-function Editor({ yamlText, onChange, onPreview, onSplit, error }) {
+function Editor({ yamlText, onChange, onPreview, onSplit, onDownload, onLoad, error }) {
   return (
     <div className="editor-container">
-      <Toolbar onPreview={onPreview} onSplit={onSplit} error={error}/>
+      <Toolbar onPreview={onPreview} onSplit={onSplit} onDownload={onDownload} onLoad={onLoad} error={error}/>
       <CodeMirror
         value={yamlText}
         height="calc(100vh - 3rem)"
@@ -355,10 +374,10 @@ function Editor({ yamlText, onChange, onPreview, onSplit, error }) {
   );
 }
 
-function SplitView({ yamlText, onChange, onPreview, onEditOnly, resume, error }) {
+function SplitView({ yamlText, onChange, onPreview, onEditOnly, onDownload, onLoad, resume, error }) {
   return (
     <div className="split-container">
-      <Toolbar onPreview={onPreview} onEditOnly={onEditOnly} error={error}/>
+      <Toolbar onPreview={onPreview} onEditOnly={onEditOnly} onDownload={onDownload} onLoad={onLoad} error={error}/>
       <div className="split-body">
         <div className="split-editor">
           <CodeMirror
@@ -401,6 +420,25 @@ function ResumeApp() {
     }
   };
 
+  const handleLoad = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => handleChange(ev.target.result);
+    reader.readAsText(file);
+    e.target.value = '';
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([yamlText], { type: 'text/yaml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'resume.yaml';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const handlePreview = () => {
     try {
       setResume(yaml.load(yamlText));
@@ -420,6 +458,8 @@ function ResumeApp() {
         onChange={handleChange}
         onPreview={handlePreview}
         onSplit={() => setMode('split')}
+        onDownload={handleDownload}
+        onLoad={handleLoad}
         error={error}
       />
     );
@@ -432,6 +472,8 @@ function ResumeApp() {
         onChange={handleChange}
         onPreview={handlePreview}
         onEditOnly={() => setMode('edit')}
+        onDownload={handleDownload}
+        onLoad={handleLoad}
         resume={resume}
         error={error}
       />

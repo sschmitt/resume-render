@@ -1,3 +1,4 @@
 public/resume.yaml
 node_modules/
 build/
+.claude/
