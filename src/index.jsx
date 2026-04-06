@@ -407,8 +407,9 @@ function ResumeApp() {
 
   useEffect(() => {
     const isYaml = r => r.ok && !(r.headers.get('content-type') || '').includes('text/html');
-    fetch('/resume.yaml')
-      .then(r => isYaml(r) ? r : fetch('/resume.sample.yaml'))
+    const base = import.meta.env.BASE_URL;
+    fetch(`${base}resume.yaml`)
+      .then(r => isYaml(r) ? r : fetch(`${base}resume.sample.yaml`))
       .then(r => r.text())
       .then(text => {
         setYamlText(text);
