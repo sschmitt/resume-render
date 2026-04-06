@@ -1,4 +1,6 @@
-# resume-render
+# Resume Render
+
+**[Live demo](https://sschmitt.github.io/resume-render/)**
 
 A React-based resume renderer that reads a `resume.yaml` file and renders it as a styled, print-friendly web page.
 
@@ -88,6 +90,16 @@ projects:
   end: YYYY
   summary: Brief description of the project.
 ```
+
+## Deployment
+
+To deploy to GitHub Pages:
+
+```bash
+npm run deploy
+```
+
+This builds the app and publishes to the `gh-pages` branch. On first deploy, go to **Settings → Pages** in the GitHub repo and set the source to the `gh-pages` branch. The site will be available at `https://<username>.github.io/resume-render/`.
 
 ## Printing
 
